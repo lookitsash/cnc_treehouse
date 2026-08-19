@@ -8,11 +8,17 @@ export type Subscriber = {
 };
 
 async function request(path: string, init?: RequestInit) {
+  const apiKey = process.env.API_KEY;
+
+  if (!apiKey) {
+    throw new Error("API_KEY is not set in the server environment");
+  }
+
   const res = await fetch(`${BASE_URL}${path}`, {
     ...init,
     cache: "no-store",
     headers: {
-      Authorization: process.env.API_KEY ?? "",
+      Authorization: apiKey,
       "Content-Type": "application/json",
     },
   });

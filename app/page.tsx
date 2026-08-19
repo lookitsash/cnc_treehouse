@@ -14,7 +14,8 @@ export default async function SubscribersPage(props: PageProps<"/">) {
 
   try {
     subscribers = await getSubscribers();
-  } catch {
+  } catch (error) {
+    console.error("Failed to load subscribers:", error);
     return <Alert severity="error">Could not load the subscriber list.</Alert>;
   }
 
